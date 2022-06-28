@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">AIPic Photo Filters</string>
+    <string name="icn_camera_view_switch_camera_content_description">Camera Switch</string>
+    <string name="icn_camera_view_camera_shutter_content_description">Camera Shutter</string>
+    <string name="icn_camera_view_view_gallery_content_description">Gallery</string>
+</resources>

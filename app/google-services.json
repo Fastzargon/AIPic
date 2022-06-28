@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1000799248574",
+    "project_id": "aipic-photo-filters",
+    "storage_bucket": "aipic-photo-filters.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000799248574:android:7436810df2310aac703eef",
+        "android_client_info": {
+          "package_name": "com.freshlemonadeteamltd.aipicphotofilters"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1000799248574-sfq9iv2m4pdc8ee77chaa8mde7rb8snq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHJdPzGVGgHiI7UIU1s1kt_jMfLM_Y1G8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1000799248574-sfq9iv2m4pdc8ee77chaa8mde7rb8snq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
