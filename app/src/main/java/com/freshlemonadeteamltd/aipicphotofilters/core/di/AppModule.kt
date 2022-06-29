@@ -1,9 +1,11 @@
 package com.freshlemonadeteamltd.aipicphotofilters.core.di
 
 import com.freshlemonadeteamltd.aipicphotofilters.data.network.ApiService
+import com.freshlemonadeteamltd.aipicphotofilters.data.network.AuthInterceptor
 import com.freshlemonadeteamltd.aipicphotofilters.data.repositories.IPhotoFilterRepository
 import com.freshlemonadeteamltd.aipicphotofilters.data.repositories.PhotoFilterRepository
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,8 +50,17 @@ class AppModule {
     }
 
     @Provides
+    @Singleton
+    fun provideGson(): Gson {
+        return GsonBuilder()
+            .setLenient()
+            .create()
+    }
+
+    @Provides
     fun provideCustomOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor())
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)

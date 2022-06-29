@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import com.freshlemonadeteamltd.aipicphotofilters.screens.*
+import com.freshlemonadeteamltd.aipicphotofilters.viewmodels.PhotoFilterViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,7 +27,7 @@ sealed class NavRoute(val route: String)
 @ExperimentalCoilApi
 @ExperimentalPermissionsApi
 @Composable
-fun ArtNavHost()
+fun ArtNavHost(photoFilterViewModel: PhotoFilterViewModel)
 {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = NavRoute.SplashScreen.route)
@@ -38,7 +39,7 @@ fun ArtNavHost()
 
         composable(NavRoute.Main.route)
         {
-            Main(navController = navController)
+            Main(navController = navController,photoFilterViewModel)
         }
 
         composable(NavRoute.SplashScreen.route)

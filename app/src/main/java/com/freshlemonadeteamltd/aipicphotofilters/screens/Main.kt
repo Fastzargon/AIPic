@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -34,9 +35,10 @@ import com.freshlemonadeteamltd.aipicphotofilters.R
 import com.freshlemonadeteamltd.aipicphotofilters.camera.CameraCapture
 import com.freshlemonadeteamltd.aipicphotofilters.navigation.NavRoute
 import com.freshlemonadeteamltd.aipicphotofilters.ui.theme.AIPicPhotoFiltersTheme
+import com.freshlemonadeteamltd.aipicphotofilters.viewmodels.PhotoFilterViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-
+import timber.log.Timber
 
 
 val EMPTY_IMAGE_URI: Uri = Uri.parse("file://dev/null")
@@ -45,12 +47,10 @@ val EMPTY_IMAGE_URI: Uri = Uri.parse("file://dev/null")
 @ExperimentalCoroutinesApi
 @ExperimentalPermissionsApi
 @Composable
-fun Main(navController: NavHostController) {
-    Image(painter = painterResource(R.drawable.back), //BG image
-        contentDescription = "background",
-        contentScale = ContentScale.FillBounds,
-        modifier = Modifier.fillMaxSize()
-    )
+fun Main(navController: NavHostController, photoFilterViewModel: PhotoFilterViewModel?) {
+
+    photoFilterViewModel?.getStyles()
+    val styles = photoFilterViewModel?.getStyles?.collectAsState()
 
     var imageUri by remember {
         mutableStateOf<Uri?>(null)
@@ -65,6 +65,12 @@ fun Main(navController: NavHostController) {
             uri: Uri? ->
         imageUri = uri
     }
+
+    Image(painter = painterResource(R.drawable.back), //BG image
+        contentDescription = "background",
+        contentScale = ContentScale.FillBounds,
+        modifier = Modifier.fillMaxSize()
+    )
 
     Column(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier
@@ -118,8 +124,8 @@ fun Main(navController: NavHostController) {
                         Modifier.size(30.dp)
                     )
                 }
-            }
-        }
+
+
 
         imageUri?.let {
             if (Build.VERSION.SDK_INT < 28) {
@@ -146,7 +152,31 @@ fun Main(navController: NavHostController) {
 
             }
         }
+
+
     }
+
+             if (!styles?.value?.styles.isNullOrEmpty()) {
+
+                    LazyRow(modifier = Modifier.fillMaxWidth()) {
+                        items(styles!!.value!!.styles.size){
+                            val style = styles.value!!.styles[it]
+                            Timber.d("styleInfo $style")
+                            Card(modifier = Modifier
+                                .width(100.dp)
+                                .height(100.dp)) {
+                                Column(modifier = Modifier.fillMaxSize()) {
+                                    Text(text = style.title)
+                                    
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
 
 
 
@@ -202,6 +232,6 @@ fun MainContent(navController: NavHostController,modifier: Modifier = Modifier) 
 @Composable
 fun prevMainScreen() {
     AIPicPhotoFiltersTheme {
-        Main(navController = rememberNavController())
+        Main(navController = rememberNavController(), null)
     }
 }

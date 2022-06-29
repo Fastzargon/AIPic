@@ -87,7 +87,7 @@ class MainActivity : ComponentActivity()
                             color = MaterialTheme.colors.background
 
                         ) {
-                            ArtNavHost()
+                            ArtNavHost(photoFilterViewModel = photoFilterViewModel)
                             requestCameraPermission()
 
 
